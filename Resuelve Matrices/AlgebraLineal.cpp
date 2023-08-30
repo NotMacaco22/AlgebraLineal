@@ -7,11 +7,22 @@ void EditarMatriz(double** matriz, int filas, int columnas); //Funcion que resue
 void MostrarNumerosPivote(double** matriz, int filas, int columnas);
 
 int main() {
-    int filas, columnas; //Declaracion de variables - Principales Usadas
+    int filas, columnas;
     cout << "Ingrese el numero de filas: ";
     cin >> filas;
+    
+    while (filas <= 0) {
+        cout << "El numero de filas debe ser mayor a cero. Ingrese nuevamente: ";
+        cin >> filas;
+    }
+
     cout << "Ingrese el numero de columnas: ";
     cin >> columnas;
+    
+    while (columnas <= 0) {
+        cout << "El numero de columnas debe ser mayor a cero. Ingrese nuevamente: ";
+        cin >> columnas;
+    }
 
     //Se declara puntero el cual apuntara a un nuevo conjunto de punteros
     double** matriz = new double*[filas];
@@ -106,13 +117,13 @@ void EditarMatriz(double** matriz, int filas, int columnas) { //De aqui en adela
             //la siguiente iteracion realiza la eliminacion de los numeros
             for (int row = 0; row < filas; row++) { //Itera a traves de todas las filas
                 if (row != col) { //Este if nos permite que no se apliquen operaciones en la fila pivote
-                    double factor = matriz[row][col];
+                    double variacion = matriz[row][col];
                     for (int k = col; k < columnas; ++k) { //Esta iteracion va a traves de las columnas del pivote (hacia la derecha)
-                        matriz[row][k] -= factor * matriz[col][k];
+                        matriz[row][k] -= variacion * matriz[col][k];
                     }
-                    if (factor != 0) { //Confirma si se realizo alguna operacion de eliminacion
+                    if (variacion != 0) { //Confirma si se realizo alguna operacion de eliminacion
                         //muestra el proceso de eliminacion en la terminal 
-                        cout << "f" << row + 1 << " -> f" << row + 1 << " - " << factor << " * f" << col + 1 << endl;
+                        cout << "f" << row + 1 << " -> f" << row + 1 << " - " << variacion << " * f" << col + 1 << endl;
                         cout << "Cambios realizados:" << endl;
                         ImprimirMatriz(matriz, filas, columnas); //Imprime la matriz actualizada
                     }
